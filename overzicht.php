@@ -1,26 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php
 require('functions.php');
-$woningQueryClause;
-if(!empty($_POST)){
-  $woning = $_POST['woning'];
-  $straatnaam = $_POST['straatnaam'];
-  $huisnummer = $_POST['postcode'];
-  $toevoeging = $_POST['toevoeging'];
-  $plaatsnaam = $_POST['plaatsnaam'];
-  print_r($_POST);
-}
-if(empty($woning)){
-  $woningQueryClause = "SoortBouw = 1 OR SoortBouw =2 ";
-}
-elseif(strcmp($woning, "nieuwbouw")){
-  $woningQueryClause = "SoortBouw = 1 ";
-}
-elseif(strcmp($woning, "bestaand")){
-  $woningQueryClause = "SoortBouw = 2 ";
-}
+require('searchresult.php');
+$sqlCount = "SELECT COUNT(*) as cnt FROM WO WHERE $woningQueryClause $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause";
+echo $sqlCount;
 try{
-  $statement = $db->prepare("SELECT COUNT(*) as cnt FROM WO WHERE $woningQueryClause");
+  $statement = $db->prepare($sqlCount);
   $statement->execute();
   while($count = $statement->fetch()){
     $cnt = $count['cnt'];
