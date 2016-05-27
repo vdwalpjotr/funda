@@ -1,7 +1,7 @@
 <?php
 require('header.php');
 require('functions.php');
-
+$woningQueryClause;
 if(!empty($_POST)){
   $woning = $_POST['woning'];
   $straatnaam = $_POST['straatnaam'];
@@ -15,8 +15,19 @@ if(!empty($_POST)){
   echo $plaatsnaam . "<br />";
   print_r($_POST);
 }
+if(empty($woning)){
+  $woningQueryClause = "SoortBouw = 1 OR SoortBouw =2 ";
+}
+elseif(strcmp($woning, "bestaand")){
+  $woningQueryClause = "SoortBouw = 1 ";
+}
+elseif(strcmp($woning, "nieuwbouw")){
+  $woningQueryClause = "SoortBouw = 2 ";
+}
 
-$statement = $db->prepare("SELECT * FROM")
+$statement = $db->prepare("SELECT * FROM WO WHERE $woningQueryClause limit 5");
+$statement->execute();
+
 
 
 ?>
