@@ -3,10 +3,13 @@ $sqlCount = "SELECT COUNT(*) as cnt
              FROM WO
              INNER JOIN wo_ad
              on wo_ad.WOID = wo.WOID
+             INNER JOIN wo_details as det
+             on wo.WOID = det.WOID
              WHERE (".$_SESSION['CLAUSES']['soortBouw'].") $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause
               AND wo_ad.vraagprijs BETWEEN ".$_SESSION['lowerPrice']." AND ".$_SESSION['maxPrice'].
-              " AND wo.SoortObject = ".$_SESSION['CLAUSES']['soortObject'];
-echo $sqlCount;
+              " AND det.AantalKamers > ".$_SESSION['CLAUSES']['aantalKamers']."
+              AND wo.SoortObject = ".$_SESSION['CLAUSES']['soortObject'];
+
 
 $sqlSelect = "SELECT wo.ADDRESS as ADDRESS,
 wo.PC as PC,
@@ -29,7 +32,9 @@ WHERE (". $_SESSION['CLAUSES']['soortBouw']." ) $straatnaamQueryClause $huisnumm
 AND vraagprijs
 BETWEEN ".$_SESSION['lowerPrice']." AND ".$_SESSION['maxPrice']."
 AND wo.SoortObject = ".$_SESSION['CLAUSES']['soortObject']."
+AND det.AantalKamers > ".$_SESSION['CLAUSES']['aantalKamers']."
 LIMIT 6 OFFSET ".$_SESSION['offset'];
 
-
-echo "<br />".$sqlSelect;?>
+// echo $sqlCount;
+// echo $sqlSelect;
+?>

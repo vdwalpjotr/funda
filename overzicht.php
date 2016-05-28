@@ -55,7 +55,7 @@ try{
   </div>
 
   <div id="main">
-
+<?php print_r($_SESSION); ?>
     <table>
       <tr>
         <td id="data" valign="top">
@@ -98,7 +98,6 @@ try{
           </form>
           <div class="head">Soort object</div>
           <div class="content">
-            <a href="#" class="licht">Data</a>
             <form method="GET" action="./overzicht.php">
               <input type="radio" name="soortObject" value="1" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortObject'] == 1){ echo "checked";}?>>Woonhuis <br />
               <input type="radio" name="soortObject" value="2" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortObject'] == 2){ echo "checked";}?>>Appartement <br />
@@ -107,14 +106,25 @@ try{
 
           <div class="head">Soort bouw</div>
           <div class="content">
-            <a href="#" class="licht">Data</a>
-            <!-- DATA WEERGEVEN -->
+
+            <form method="GET" action="./overzicht.php">
+              <input type="radio" name="soortBouw" value="1" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortBouw'][12] == 1){ echo "checked";}?>>Bestaand <br />
+              <input type="radio" name="soortBouw" value="2" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortBouw'][12] == 2){ echo "checked";}?>>Nieuwbouw <br />
+            </form>
           </div>
 
           <div class="head">Aantal kamers</div>
           <div class="content">
             <a href="#" class="licht">Data</a>
-            <!-- DATA WEERGEVEN -->
+            <form method="get" action="./overzicht.php">
+              <select name="aantalKamers" id="aantalKamers" onchange="this.form.submit()">
+                <option value="1" <?php if($_SESSION['CLAUSES']['aantalKamers'] == 1){ echo "selected";}?>>1+ Kamers</option>
+                <option value="2" <?php if($_SESSION['CLAUSES']['aantalKamers'] == 2){ echo "selected";}?>>2+ Kamers</option>
+                <option value="3" <?php if($_SESSION['CLAUSES']['aantalKamers'] == 3){ echo "selected";}?>>3+ Kamers</option>
+                <option value="4" <?php if($_SESSION['CLAUSES']['aantalKamers'] == 4){ echo "selected";}?>>4+ Kamers</option>
+                <option value="5" <?php if($_SESSION['CLAUSES']['aantalKamers'] == 5){ echo "selected";}?>>5+ Kamers</option>
+              </select>
+            </form>
           </div>
 
           <div class="head">Woonoppervlakte</div>

@@ -10,8 +10,8 @@ session_unset();
 <form method="post" action="./overzicht.php">
  <fieldset>
    Soort woning:
-   <input type="radio" name="woning" value="bestaand" id="bestaand"/><label for="bestaand">Bestaande bouw</label>
-   <input type="radio" name="woning" value="nieuwbouw" id="nieuwbouw"/><label for="nieuwbouw">Nieuwbouw</label>
+   <input type="radio" name="woning" value="1" id="bestaand"/><label for="bestaand">Bestaande bouw</label>
+   <input type="radio" name="woning" value="2" id="nieuwbouw"/><label for="nieuwbouw">Nieuwbouw</label>
    <br/>
 
    Vul (een deel van) het adres in dat u zoekt.<br/>
