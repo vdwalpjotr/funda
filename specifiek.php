@@ -1,5 +1,6 @@
 <?php
 require 'header.php';
+session_start();
 ?>
 
 <div id="specifiek" style="width: 300px; margin-left: 30px;">
