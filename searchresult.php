@@ -7,14 +7,38 @@ $huisnummerQueryClause  = " ";
 $toevoeginQueryClause   = " ";
 $plaatsnaamQueryClause  = " ";
 $postcodeQueryClause    = " ";
+$soortWoningQuery = " ";
+if($_SESSION['CLAUSES']['soortObject'] == null){
+  $_SESSION['CLAUSES']['soortObject'] = 1;
+}
+if(!empty($_SESSION['CLAUSES']['soortObject']) && ($_GET['soortObject'] != null)){
+  $_SESSION['CLAUSES']['soortObject'] = $_GET['soortObject'];
+}
 if($_SESSION['offset'] == null){
   $_SESSION['offset'] = 0;
 }
 if((!empty($_SESSION['offset']) || $_SESSION['offset'] == 0) && ($_GET['offset'] != null)){
   $_SESSION['offset'] = $_GET['offset'];
 }
+if($_SESSION['lowerPrice'] == null){
+  $_SESSION['lowerPrice'] = 0;
+}
+if((!empty($_SESSION['lowerPrice']) || $_SESSION['lowerPrice'] == 0) && ($_GET['lowerPrice'] != null)){
+  $_SESSION['lowerPrice'] = $_GET['lowerPrice'];
+}
+
+if($_SESSION['maxPrice'] == null){
+  $_SESSION['maxPrice'] = 2000000;
+}
+if((!empty($_SESSION['maxPrice']) && ($_GET['maxPrice'] != null))){
+  $_SESSION['maxPrice'] = $_GET['maxPrice'];
+}
 
 print_r($_SESSION);
+if(empty($_SESSION['CLAUSES']['soortBouw'])){
+  $_SESSION['CLAUSES']['soortBouw'] = "SoortBouw = 1 OR SoortBouw =2 ";
+}
+
 if(!empty($_POST)){
   $woning     = $_POST['woning'];
   $straatnaam = $_POST['straatnaam'];
@@ -24,14 +48,11 @@ if(!empty($_POST)){
   $postcode   = $_POST['postcode'];
   $_SESSION['POST'] = $_POST;
 
-  if(empty($woning)){
-    $woningQueryClause = "SoortBouw = 1 OR SoortBouw =2 ";
-  }
-  elseif(strcmp($woning, "nieuwbouw")){
-    $woningQueryClause = "SoortBouw = 1 ";
+  if(strcmp($woning, "nieuwbouw")){
+    $_SESSION['CLAUSES']['soortBouw'] = "SoortBouw = 1 ";
   }
   elseif(strcmp($woning, "bestaand")){
-    $woningQueryClause = "SoortBouw = 2 ";
+    $_SESSION['CLAUSES']['soortBouw'] = "SoortBouw = 2 ";
   }
   $_SESSION['CLAUSES']['woning'] = $woningQueryClause;
   if(!empty($_POST['straatnaam'])){

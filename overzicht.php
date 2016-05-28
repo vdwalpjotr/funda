@@ -2,26 +2,7 @@
 <?php
 require('connect.php');
 require('searchresult.php');
-session_start();
-$sqlCount = "SELECT COUNT(*) as cnt FROM WO $woningQueryClause $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause";
-$sqlSelect = "SELECT wo.ADDRESS as ADDRESS,
-wo.PC as PC,
-wo.CITY as city,
-det.WOON_OPPERVLAKTE as WOON_OPPERVLAKTE,
-det.AantalKamers as aantal_kamers,
-wo_ad.vraagprijs as vraagprijs,
-mk.name as makelaar,
-svp.name as prijsnaam
-FROM WO
-INNER JOIN wo_ad
-ON wo_ad.WOID = wo.WOID
-INNER JOIN wo_details as det
-ON wo.WOID = det.WOID
-INNER JOIN mkantoor as mk
-ON wo.mkID = mk.mkID
-INNER JOIN soortvraagprijs as svp
-ON wo_ad.vraagprijs_soort = svp.ID
-$woningQueryClause $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause LIMIT 6 OFFSET ".$_SESSION['offset'];
+require('queryBuilder.php');
 try{
   $statement = $db->prepare($sqlCount);
   $statement->execute();
@@ -78,11 +59,50 @@ try{
     <table>
       <tr>
         <td id="data" valign="top">
-          <div class="head">Prijsklasse van/tot</div><br/>
+          <div class="head">Prijsklasse van/tot</div>
+          <form method="GET" action="./overzicht.php">
+              <select name="lowerPrice" id="lowerPrice" onchange="this.form.submit()">
+                <option value="0"       <?php if($_SESSION['lowerPrice'] == 0 ) { echo "selected"; } ?>>
+                  €0,-</option>
+                <option value="50000"   <?php if($_SESSION['lowerPrice'] == 50000 ) { echo "selected"; }?>>
+                  €50.000,-</option>
+                <option value="75000"   <?php if($_SESSION['lowerPrice'] == 75000 ) { echo "selected"; }?>>
+                  €75.000,-</option>
+                <option value="100000"  <?php if($_SESSION['lowerPrice'] == 100000 ) { echo "selected"; }?>>
+                  €100.000,-</option>
+                <option value="125000"  <?php if($_SESSION['lowerPrice'] == 125000 ) { echo "selected"; }?>>
+                  €125.000,-</option>
+                  <option value="250000"  <?php if($_SESSION['lowerPrice'] == 250000 ) { echo "selected"; }?>>
+                    €250.000,-</option>
+                    <option value="500000"  <?php if($_SESSION['lowerPrice'] == 500000 ) { echo "selected"; }?>>
+                      €500.000,-</option>
+              </select>
+              <select name="maxPrice" id="maxPrice" onchange="this.form.submit()">
+                <option value="50000"   <?php if($_SESSION['maxPrice'] == 50000 ) { echo "selected"; }?>>
+                  €50.000,-</option>
+                <option value="75000"   <?php if($_SESSION['maxPrice'] == 75000 ) { echo "selected"; }?>>
+                  €75.000,-</option>
+                <option value="100000"  <?php if($_SESSION['maxPrice'] == 100000 ) { echo "selected"; }?>>
+                  €100.000,-</option>
+                <option value="125000"  <?php if($_SESSION['maxPrice'] == 125000 ) { echo "selected"; }?>>
+                  €125.000,-</option>
+                  <option value="250000"  <?php if($_SESSION['maxPrice'] == 250000 ) { echo "selected"; }?>>
+                    €250.000,-</option>
+                    <option value="500000"  <?php if($_SESSION['maxPrice'] == 500000 ) { echo "selected"; }?>>
+                      €500.000,-</option>
+                      <option value="750000"  <?php if($_SESSION['maxPrice'] == 750000 ) { echo "selected"; }?>>
+                        €750.000,-</option>
+                        <option value="2000000"  <?php if($_SESSION['maxPrice'] == 2000000 ) { echo "selected"; }?>>
+                          €2.000.000,-</option>
+              </select>
+          </form>
           <div class="head">Soort object</div>
           <div class="content">
             <a href="#" class="licht">Data</a>
-            <!-- DATA WEERGEVEN -->
+            <form method="GET" action="./overzicht.php">
+              <input type="radio" name="soortObject" value="1" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortObject'] == 1){ echo "checked";}?>>Woonhuis <br />
+              <input type="radio" name="soortObject" value="2" onclick="this.form.submit()" <?php if($_SESSION['CLAUSES']['soortObject'] == 2){ echo "checked";}?>>Appartement <br />
+            </form>
           </div>
 
           <div class="head">Soort bouw</div>
