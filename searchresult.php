@@ -7,7 +7,14 @@ $huisnummerQueryClause  = " ";
 $toevoeginQueryClause   = " ";
 $plaatsnaamQueryClause  = " ";
 $postcodeQueryClause    = " ";
+if($_SESSION['offset'] == null){
+  $_SESSION['offset'] = 0;
+}
+if((!empty($_SESSION['offset']) || $_SESSION['offset'] == 0) && ($_GET['offset'] != null)){
+  $_SESSION['offset'] = $_GET['offset'];
+}
 
+print_r($_SESSION);
 if(!empty($_POST)){
   $woning     = $_POST['woning'];
   $straatnaam = $_POST['straatnaam'];

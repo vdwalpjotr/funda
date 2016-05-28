@@ -21,7 +21,7 @@ INNER JOIN mkantoor as mk
 ON wo.mkID = mk.mkID
 INNER JOIN soortvraagprijs as svp
 ON wo_ad.vraagprijs_soort = svp.ID
-$woningQueryClause $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause LIMIT 15";
+$woningQueryClause $straatnaamQueryClause $huisnummerQueryClause $toevoeginQueryClause $plaatsnaamQueryClause $postcodeQueryClause LIMIT 6 OFFSET ".$_SESSION['offset'];
 try{
   $statement = $db->prepare($sqlCount);
   $statement->execute();
@@ -103,15 +103,15 @@ try{
             <!-- DATA WEERGEVEN -->
           </div>
         </td>
-<td valign="top">
-        <?php
+        <td valign="top">
+          <?php
 
 
-        try{
-          $limitStatement = $db->prepare($sqlSelect);
-          $limitStatement->execute();
+          try{
+            $limitStatement = $db->prepare($sqlSelect);
+            $limitStatement->execute();
 
-          while($row = $limitStatement->fetch(PDO::FETCH_ASSOC)){          ?>
+            while($row = $limitStatement->fetch(PDO::FETCH_ASSOC)){          ?>
 
 
               <div class="huisdata">
@@ -127,9 +127,21 @@ try{
             print($e->getMessage());
           }
           ?>
-        </td>
-      </tr>
-    </table>
+            <div style="text-align: center;">
+      <ul>
+        <?php $pagCount = round($cnt / 6);
+
+        if($pagCount > 20){
+          $pagCount = 20;
+        }
+        for($i= 0; $i< $pagCount; $i++ ){ ?>
+        <li><a href="./overzicht.php?offset=<?php echo $i*6;?>"><?php echo $i;?></a></li>
+      <?php }?>
+      </ul>
+    </div>
+  </td>
+</tr>
+</table>
 
   </div>
 
