@@ -51,12 +51,9 @@ $result = $detailStatement->fetch(PDO::FETCH_ASSOC);
     </ul>
 
     <div id="content">
-      <div><?php echo $result['omschrijving']."....";?></div>
-      <a href="omschrijving.php?woid=<?php echo $_GET['woid']?>">Volledige omschrijving</a>
-      <a href="kenmerken.php?woid=<?php echo $_GET['woid']?>">Alle kenmerken</a>
-<?php }catch(PDOException $e){
-  print $e->getMessage();
-} ?>
+      <div><?php echo $result['omschrijving']."....";?><a href="omschrijving.php?woid=<?php echo $_GET['woid']?>">Volledige omschrijving</a></div>
+
+
       <table id="kenmerken">
         <tr><th colspan="2">Kenmerken</th></tr>
 
@@ -66,6 +63,10 @@ $result = $detailStatement->fetch(PDO::FETCH_ASSOC);
         <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
         <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
       </table>
+      <a href="kenmerken.php?woid=<?php echo $_GET['woid']?>">Alle kenmerken</a>
+<?php }catch(PDOException $e){
+  print $e->getMessage();
+} ?>
     </div>
   </div>
 </div>
