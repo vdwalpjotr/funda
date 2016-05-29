@@ -24,8 +24,9 @@ try{
         <li><a href="detail.php?woid=<?php echo $_GET['woid'];?>" class="licht">Overzicht</a></li>
         <li><a href="omschrijving.php?woid=<?php echo $_GET['woid'];?>" class="licht">Omschrijving</a></li>
         <li><a href="kenmerken.php?woid=<?php echo $_GET['woid'];?>" class="active">Kenmerken</a></li>
-        <li><a href="hypotheek.html" class="licht">Hypotheek</a></li>
+        <li><a href="hypotheek.php?prijs=<?php echo $result['vraagprijs'];?>" class="licht">Hypotheek</a></li>
         <li><a href="afspraak.html" class="licht">Afspraak makelaar</a></li>
+        <li><a href="specifiek.php" class="licht">Back</a></li>
 
       </ul>
       <div id="content">
