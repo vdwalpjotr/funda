@@ -27,7 +27,7 @@
 
 <div id="nav">
   <ul>
-    <li><a href="index.html" class="active">Koopwoningen</a></li>
+    <li><a href="index.php" class="active">Koopwoningen</a></li>
     <li>Huurwoningen</li>
     <li>Nieuwbouwprojecten</li>
     <li>Recreatiewoningen</li>
