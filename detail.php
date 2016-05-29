@@ -44,7 +44,7 @@ $result = $detailStatement->fetch(PDO::FETCH_ASSOC);
     <ul>
       <li><a href="detail.php?woid=<?php echo $_GET['woid'];?>" class="active">Overzicht</a></li>
       <li><a href="omschrijving.php?woid=<?php echo $_GET['woid'];?>" class="licht">Omschrijving</a></li>
-      <li><a href="kenmerken.html" class="licht">Kenmerken</a></li>
+        <li><a href="kenmerken.php?woid=<?php echo $_GET['woid'];?>" class="licht">Kenmerken</a></li>
       <li><a href="hypotheek.html" class="licht">Hypotheek</a></li>
       <li><a href="afspraak.html" class="licht">Afspraak makelaar</a></li>
 

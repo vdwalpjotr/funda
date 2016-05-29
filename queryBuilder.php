@@ -41,17 +41,27 @@ LIMIT 6 OFFSET ".$_SESSION['offset'];
 
 
 $sqlDetailSelect = "SELECT WO.ADDRESS as ADDRESS,
+  wo.bouwjaar as bouwJaar,
+  WO.PC as PC,
+  WO.CITY as CITY,
+  det.woon_oppervlakte as woonOppervlakte,
+  det.Inhoud as woonInhoud,
+  det.Perceel_oppervlakte as perceelOppervlakte,
+  det.Tuin_oppervlakte as tuinOppervlakte,
+  det.Aantalkamers as aantalKamers,
+  det.Aantalbadkamers as aantalBadkamers,
+  det.Aantalwoonlagen as aantalWoonlagen,
+  makelaar.name as makelaarName,
   type.name as typeWoning,
   status.name as statusWoning,
   soort.name as soortWoning,
   bouw.name as soortBouw,
   soort_object.name as soortObject,
-  WO.PC as PC,
-  WO.CITY as CITY,
   wo_ad.vraagprijs as vraagprijs,
   svp.name as prijsnaam,
   SUBSTRING_INDEX(wo_ad.omschrijving, ' ', 40) as omschrijvingKort,
-  wo_ad.omschrijving as omschrijvingLang
+  wo_ad.omschrijving as omschrijvingLang,
+  ABS(ROUND(DATEDIFF(wo_ad.plaatsings_datum, SYSDATE())/7)) as weeksPassed
   FROM WO
   INNER JOIN wo_ad
   ON WO.WOID = wo_ad.WOID
@@ -67,8 +77,17 @@ $sqlDetailSelect = "SELECT WO.ADDRESS as ADDRESS,
   ON wo.soortobject = soort_object.ID
   INNER JOIN SoortBouw as bouw
   ON wo.SoortBouw = bouw.ID
+  INNER JOIN mkantoor as makelaar
+  ON makelaar.MKID = wo.MKID
+  INNER JOIN wo_details as det
+  ON WO.WOID = det.WOID
   WHERE WO.WOID=".$_GET['woid'];
 
+$selectLiggingQuery = "SELECT ligging.name as ligging FROM
+wo_ligging
+INNER JOIN ligging
+ON wo_ligging.ligging_id = ligging.ID
+WHERE wo_ligging.WOID =".$_GET['woid'];
 // echo $sqlSelect;
 
 ?>
