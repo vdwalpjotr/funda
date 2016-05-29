@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php
 require('connect.php');
 require('searchresult.php');
@@ -55,7 +55,6 @@ try{
   </div>
 
   <div id="main">
-<?php print_r($_SESSION); ?>
     <table>
       <tr>
         <td id="data" valign="top">
@@ -129,8 +128,16 @@ try{
 
           <div class="head">Woonoppervlakte</div>
           <div class="content">
-            <a href="#" class="licht">Data</a>
-            <!-- DATA WEERGEVEN -->
+            <form method="get" action="./overzicht.php">
+              <select name="woonOppervlakte" id="woonOppervlakte" onchange="this.form.submit()">
+                <option value="50" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 50){ echo "selected";}?>>50+ m<sup>2</sup></option>
+                <option value="50" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 75){ echo "selected";}?>>75+ m<sup>2</sup></option>
+                <option value="100" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 100){ echo "selected";}?>>100+ m<sup>2</sup></option>
+                <option value="125" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 125){ echo "selected";}?>>125+ m<sup>2</sup></option>
+                <option value="150" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 150){ echo "selected";}?>>150+ m<sup>2</sup></option>
+                <option value="250" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 250){ echo "selected";}?>>250+ m<sup>2</sup></option>
+                <option value="500" <?php if($_SESSION['CLAUSES']['woonOppervlakte'] == 500){ echo "selected";}?>>500+ m<sup>2</sup></option>
+            </form>
           </div>
         </td>
         <td valign="top">
@@ -145,7 +152,7 @@ try{
 
 
               <div class="huisdata">
-                <div class="head"><a class="normal" href="detail.php"><?php echo $row['ADDRESS']; ?> </a></div><div class="prijs">€ <?php echo $row['vraagprijs']." ".$row['prijsnaam'];?></div><br/>
+                <div class="head"><a class="normal" href="detail.php?woid=<?php echo $row['WOID'];?>"><?php echo $row['ADDRESS']; ?> </a></div><div class="prijs">€ <?php echo $row['vraagprijs']." ".$row['prijsnaam'];?></div><br/>
                 <span class="adres"><?php echo $row['PC']." ".$row['plaatsnaam'];?><br/><?php echo $row['WOON_OPPERVLAKTE'];?> m<sup>2</sup> - <?php echo $row['aantal_kamers'];?> kamers</span><br/>
                 <span><a class="makelaar" href="makelaar.php"><?php echo $row['makelaar'];?></a></span>
               </div>

@@ -1,8 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"><head> 
+<?php
+require('connect.php');
+require('queryBuilder.php');
+?>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
 <title>Funda</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
 
@@ -23,12 +26,18 @@
     <li>My Funda</li>
   </ul>
 </div>
+<?php
+try{
 
+$detailStatement = $db->prepare($sqlDetailSelect);
+$detailStatement->execute();
+$result = $detailStatement->fetch(PDO::FETCH_ASSOC);
+?>
 <div id="main">
   <div id="adresgegevens">
-    <div class="head">Bekemaheerd 22</div>
-    <div class="adres">9737 PT Groningen</div>
-    <div class="prijs">€ 135.000 k.k.</div>
+    <div class="head"><?php echo $result['ADDRESS'];?></div>
+    <div class="adres"><?php echo $result['PC']." ".$result['CITY'];?></div>
+    <div class="prijs">€ <?php echo $result['vraagprijs']." ".$result['prijsnaam'];?></div>
   </div>
 
   <div id="details">
@@ -42,8 +51,12 @@
     </ul>
 
     <div id="content">
-      Lichte hoekwoning met besloten tuin op het zuidwesten en parkeergelegenheid op eigen terrein (circa 135 m<sup>2</sup> eigen grond)! De woning is gelegen in een groene woonomgeving met diverse voorzieningen zoals scholen, winkelcentrum en sportpark Kardinge om ... <a href="omschrijving.html">Volledige omschrijving</a>
-
+      <div><?php echo $result['omschrijving']."....";?></div>
+      <a href="omschrijving.php?woid=<?php echo $_GET['woid']?>">Volledige omschrijving</a>
+      <a href="kenmerken.php?woid=<?php echo $_GET['woid']?>">Alle kenmerken</a>
+<?php }catch(PDOException $e){
+  print $e->getMessage();
+} ?>
       <table id="kenmerken">
         <tr><th colspan="2">Kenmerken</th></tr>
 
@@ -59,6 +72,3 @@
 
 
 </body></html>
-
-
-

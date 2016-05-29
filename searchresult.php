@@ -13,6 +13,7 @@ if($_SESSION['CLAUSES']['soortObject'] == null){
 }
 if(!empty($_SESSION['CLAUSES']['soortObject']) && ($_GET['soortObject'] != null)){
   $_SESSION['CLAUSES']['soortObject'] = $_GET['soortObject'];
+  $_SESSION['offest'] = 0;
 }
 if($_SESSION['offset'] == null){
   $_SESSION['offset'] = 0;
@@ -25,6 +26,7 @@ if($_SESSION['lowerPrice'] == null){
 }
 if((!empty($_SESSION['lowerPrice']) || $_SESSION['lowerPrice'] == 0) && ($_GET['lowerPrice'] != null)){
   $_SESSION['lowerPrice'] = $_GET['lowerPrice'];
+  $_SESSION['offest'] = 0;
 }
 
 if($_SESSION['CLAUSES']['aantalKamers'] == null){
@@ -32,13 +34,24 @@ if($_SESSION['CLAUSES']['aantalKamers'] == null){
 }
 if((!empty($_SESSION['CLAUSES']['aantalKamers'])) && ($_GET['aantalKamers'] != null)){
   $_SESSION['CLAUSES']['aantalKamers'] = $_GET['aantalKamers'];
+  $_SESSION['offest'] = 0;
 }
+
+if($_SESSION['CLAUSES']['woonOppervlakte'] == null){
+  $_SESSION['CLAUSES']['woonOppervlakte'] = 1;
+}
+if((!empty($_SESSION['CLAUSES']['woonOppervlakte'])) && ($_GET['woonOppervlakte'] != null)){
+  $_SESSION['CLAUSES']['woonOppervlakte'] = $_GET['woonOppervlakte'];
+  $_SESSION['offest'] = 0;
+}
+
 
 if($_SESSION['maxPrice'] == null){
   $_SESSION['maxPrice'] = 2000000;
 }
 if((!empty($_SESSION['maxPrice']) && ($_GET['maxPrice'] != null))){
   $_SESSION['maxPrice'] = $_GET['maxPrice'];
+  $_SESSION['offest'] = 0;
 }
 
 if(empty($_SESSION['CLAUSES']['soortBouw'])){
@@ -47,6 +60,7 @@ if(empty($_SESSION['CLAUSES']['soortBouw'])){
 
 if(!empty($_SESSION['CLAUSES']['soortBouw']) && $_GET['soortBouw'] != null){
   $_SESSION['CLAUSES']['soortBouw'] = "SoortBouw = " . $_GET['soortBouw'];
+  $_SESSION['offest'] = 0;
 
 }
 if(!empty($_POST)){
