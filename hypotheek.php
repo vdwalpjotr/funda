@@ -1,5 +1,10 @@
 <?php
 	require('header.php');
+	
+	$prijs = "";
+	if(isset($_GET["prijs"])) {
+		$prijs = $_GET["prijs"];
+	}
 ?>
 <style>	
 	.main-panel {
@@ -74,7 +79,7 @@
 			<label for="bouwdepot">Bouwdepot:</label>
 		</div>
 		<div class="right-panel">
-			<label>&euro; </label><input type="text" name="koopsom" id="koopsom" onkeypress="return isNumberKey(event)" onkeyup="addFields(event)"/>
+			<label>&euro; </label><input type="text" name="koopsom" id="koopsom" onkeypress="return isNumberKey(event)" onkeyup="addFields(event)" value="<?php echo $prijs;?>"/>
 			<br/>
 			<label>&euro; </label><input type="text" name="inschatting_kosten" id="inschatting_kosten" onkeypress="return isNumberKey(event)" disabled="disabled"/>
 			<br/>
