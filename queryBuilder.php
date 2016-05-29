@@ -41,23 +41,34 @@ LIMIT 6 OFFSET ".$_SESSION['offset'];
 
 
 $sqlDetailSelect = "SELECT WO.ADDRESS as ADDRESS,
+  type.name as typeWoning,
+  status.name as statusWoning,
+  soort.name as soortWoning,
+  bouw.name as soortBouw,
+  soort_object.name as soortObject,
   WO.PC as PC,
   WO.CITY as CITY,
   wo_ad.vraagprijs as vraagprijs,
   svp.name as prijsnaam,
-  SUBSTRING_INDEX(wo_ad.omschrijving, ' ', 40) as omschrijving
+  SUBSTRING_INDEX(wo_ad.omschrijving, ' ', 40) as omschrijvingKort,
+  wo_ad.omschrijving as omschrijvingLang
   FROM WO
   INNER JOIN wo_ad
   ON WO.WOID = wo_ad.WOID
   INNER JOIN soortvraagprijs as svp
   ON wo_ad.vraagprijs_soort = svp.ID
+  INNER JOIN typewoning as type
+  ON WO.TYPEWONING = type.ID
+  INNER JOIN status
+  ON wo_ad.status_id = status.id
+  INNER JOIN soortwoning as soort
+  ON wo.SoortWoning = soort.ID
+  INNER JOIN soortobject as soort_object
+  ON wo.soortobject = soort_object.ID
+  INNER JOIN SoortBouw as bouw
+  ON wo.SoortBouw = bouw.ID
   WHERE WO.WOID=".$_GET['woid'];
 
 // echo $sqlSelect;
 
-$sqlOmschrijving = "SELECT wo.WOID, ADDRESS,
-wo_ad.omschrijving FROM WO
-INNER JOIN wo_ad
-ON wo_ad.WOID = WO.WOID
-WHERE wo.WOID = ".$_GET['woid'];
 ?>

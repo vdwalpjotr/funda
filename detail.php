@@ -42,8 +42,8 @@ $result = $detailStatement->fetch(PDO::FETCH_ASSOC);
 
   <div id="details">
     <ul>
-      <li><a href="detail.html" class="active">Overzicht</a></li>
-      <li><a href="omschrijving.html" class="licht">Omschrijving</a></li>
+      <li><a href="detail.php?woid=<?php echo $_GET['woid'];?>" class="active">Overzicht</a></li>
+      <li><a href="omschrijving.php?woid=<?php echo $_GET['woid'];?>" class="licht">Omschrijving</a></li>
       <li><a href="kenmerken.html" class="licht">Kenmerken</a></li>
       <li><a href="hypotheek.html" class="licht">Hypotheek</a></li>
       <li><a href="afspraak.html" class="licht">Afspraak makelaar</a></li>
@@ -51,17 +51,17 @@ $result = $detailStatement->fetch(PDO::FETCH_ASSOC);
     </ul>
 
     <div id="content">
-      <div><?php echo $result['omschrijving']."....";?><a href="omschrijving.php?woid=<?php echo $_GET['woid']?>">Volledige omschrijving</a></div>
+      <div><?php echo $result['omschrijvingKort']."....";?><a href="omschrijving.php?woid=<?php echo $_GET['woid']?>">Volledige omschrijving</a></div>
 
 
       <table id="kenmerken">
         <tr><th colspan="2">Kenmerken</th></tr>
 
-        <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
-        <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
-        <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
-        <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
-        <tr><td class="kop">Soort appartement</td><td>Gallerij</td></tr>
+        <tr><td class="kop">Soort Woning</td><td><?php echo $result['typeWoning'].", ".$result['soortWoning'];?></td></tr>
+        <tr><td class="kop">Type Woning</td><td><?php echo $result['soortObject'];?></td></tr>
+        <tr><td class="kop">Soort Bouw</td><td><?php echo $result['soortBouw'];?></td></tr>
+        <tr><td class="kop">Status</td><td><?php echo $result['statusWoning'];?></td></tr>
+        <tr><td class="kop">Prijs</td><td>€ <?php echo $result['vraagprijs']." ".$result['prijsnaam'];?></td></tr>
       </table>
       <a href="kenmerken.php?woid=<?php echo $_GET['woid']?>">Alle kenmerken</a>
 <?php }catch(PDOException $e){
