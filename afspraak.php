@@ -22,7 +22,7 @@
 		}	
 		?>
 		
-		<h3>Thank you for the reservation. Please have fun with fucking yourself on:</h3>
+		<h3>Thank you for the reservation on:</h3>
 		<h4><?php echo $_POST['afspraken-lijst'];?></h4>
 		
 		<?php
@@ -98,7 +98,7 @@
 	//print_r($beschikbare_afpsraken);	
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<h2>There are appointments left on the following moments to go fuck yourself:</h2>
+	<h2>There are appointments left on the following moments:</h2>
 	<select name="afspraken-lijst" id="afspraken-lijst">
 	  <option selected="selected">Choose one</option>
 	  <?php
